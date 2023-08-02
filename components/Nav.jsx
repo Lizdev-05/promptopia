@@ -2,9 +2,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { signIn, signOut, getProvider } from "next-auth/react";
+import { signIn, signOut, getProviders } from "next-auth/react";
+
 const Nav = () => {
-  const isUserLoggedIn = true;
+  const isUserLoggedIn = false;
+
+  const [providers, setProviders] = useState(null);
+
+  const useEffect =
+    (() => {
+      const setProviders = async () => {
+        const response = await getProviders();
+
+        setProviders(response);
+      };
+
+      setProviders();
+    },
+    []);
+
   return (
     <nav className="flex-between w-full mb-16 pt-3">
       <Link href="/" className="flex gap-2 flex-center">
